@@ -37,5 +37,9 @@ Admin: admin@gmail.com / admin
 
 #### Список запросов через curl, просмотр fx
 
+##### Пользователи с ролями
 * curl -s http://localhost:8080/api/profile --user user@yandex.ru:password | fx
 * curl -s http://localhost:8080/api/admin/users --user admin@gmail.com:admin | fx
+
+##### Рестораны
+* curl -s http://localhost:8080/api/admin/restaurants/1 --user admin@gmail.com:admin | fx
