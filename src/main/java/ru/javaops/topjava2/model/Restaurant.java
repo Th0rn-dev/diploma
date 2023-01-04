@@ -36,4 +36,9 @@ public class Restaurant extends NamedEntity implements HasId, Serializable {
         super(id, name);
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + '[' + address + ']';
+    }
 }

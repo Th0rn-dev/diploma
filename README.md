@@ -43,3 +43,6 @@ Admin: admin@gmail.com / admin
 
 ##### Рестораны
 * curl -s http://localhost:8080/api/admin/restaurants/1 --user admin@gmail.com:admin | fx
+
+##### Меню для голосования (видят все, в том числе и не авторизованные)
+* curl -s http://localhost:8080/api/menus | fx
