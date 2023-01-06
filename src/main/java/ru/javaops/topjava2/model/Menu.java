@@ -12,19 +12,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+
+@Entity()
+@Table(name = "menu")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @ToString
-@Entity()
-@Table(name = "day_menu")
 public class Menu extends BaseEntity implements HasId, Serializable {
 
     @Serial
@@ -35,16 +35,9 @@ public class Menu extends BaseEntity implements HasId, Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date created = new Date();
 
-    @ToString.Exclude
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
-
-// ToDo пока не понимаю, как в модель завести блюда. оставлю одно.
-//  Есть предположение, что это можно сделать через EntityGraph
-
-    @OneToOne
-    @JoinColumn(name = "dish_id")
-    private Dish dish;
 
 }
