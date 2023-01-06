@@ -1,5 +1,6 @@
 package ru.javaops.topjava2.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,21 +11,25 @@ import ru.javaops.topjava2.HasId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+
+@Entity()
+@Table(name = "menu")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @ToString
-@Entity()
-@Table(name = "day_menu")
 public class Menu extends BaseEntity implements HasId, Serializable {
 
     @Serial
@@ -35,16 +40,14 @@ public class Menu extends BaseEntity implements HasId, Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date created = new Date();
 
-    @ToString.Exclude
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-// ToDo пока не понимаю, как в модель завести блюда. оставлю одно.
-//  Есть предположение, что это можно сделать через EntityGraph
-
-    @OneToOne
-    @JoinColumn(name = "dish_id")
-    private Dish dish;
+    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
+    @NotNull
+    @JsonManagedReference
+    private Set<Dish> dishes = new HashSet<>();
 
 }

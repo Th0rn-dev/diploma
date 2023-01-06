@@ -28,4 +28,5 @@ public class MenuController {
         log.info("Get present day menu");
         return menuRepository.findAllPresentDayMenu();
     }
+
 }

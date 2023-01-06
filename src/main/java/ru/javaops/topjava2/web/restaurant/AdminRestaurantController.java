@@ -32,8 +32,11 @@ import static ru.javaops.topjava2.util.validation.ValidationUtil.checkNew;
 public class AdminRestaurantController {
     static final String REST_URL = "/api/admin/restaurants";
 
-    @Autowired
     protected RestaurantRepository repository;
+
+    public AdminRestaurantController(RestaurantRepository repository) {
+        this.repository = repository;
+    }
 
     protected Restaurant prepareAndSave(Restaurant restaurant) {
         return repository.save(restaurant);
