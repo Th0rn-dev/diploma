@@ -46,3 +46,18 @@ Admin: admin@gmail.com / admin
 
 ##### Меню для голосования (видят все, в том числе и не авторизованные)
 * curl -s http://localhost:8080/api/menus | fx
+* curl -s http://localhost:8080/api/menus/9 --user admin@gmail.com:admin | fx
+
+* curl -i \
+-H "Accept: application/json" \
+-H "Content-Type:application/json" \
+-X POST --data '{"restaurant": {"id": 1}, "dishes": [{"name": "Суп", "price": 100}, {"name": "Салат", "price": 70}]}' \
+-s  http://localhost:8080/api/menus --user admin@gmail.com:admin
+
+* curl -x DELETE -s http://localhost:8080/api/menus/1 --user admin@gmail.com:admin
+
+##### Голосование
+* curl -x PUT -s http://localhost:8080/api/votes/restaurants/1/vote --user user@yandex.ru:password | fx
+
+##### Результаты голосования
+* curl -s http://localhost:8080/api/results | fx

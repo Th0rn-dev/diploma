@@ -35,3 +35,6 @@ VALUES ('Суп', 200, 1),
        ('Винегрет', 110, 4),
        ('Рагу', 300, 4);
 
+INSERT INTO VOTE (voting_day, restaurant_id, user_id)
+VALUES (now(), 1, 2);
+
