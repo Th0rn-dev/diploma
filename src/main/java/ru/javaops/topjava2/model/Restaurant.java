@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import ru.javaops.topjava2.HasId;
+import ru.javaops.topjava2.util.validation.NoHtml;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ public class Restaurant extends NamedEntity implements HasId, Serializable {
 
     @Column(name = "address", nullable = false)
     @NotBlank
+    @NoHtml
     private String address;
 
     public Restaurant(Restaurant r) {
@@ -35,10 +37,5 @@ public class Restaurant extends NamedEntity implements HasId, Serializable {
     public Restaurant(Integer id, String name, String address) {
         super(id, name);
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + '[' + address + ']';
     }
 }
