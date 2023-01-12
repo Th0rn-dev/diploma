@@ -46,6 +46,7 @@ public class Menu extends BaseEntity implements HasId, Serializable {
     @ManyToOne
     @NotNull
     @JoinColumn(name = "restaurant_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

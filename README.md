@@ -42,7 +42,20 @@ Admin: admin@gmail.com / admin
 * curl -s http://localhost:8080/api/admin/users --user admin@gmail.com:admin | fx
 
 ##### Рестораны
+* curl -s http://localhost:8080/api/admin/restaurants --user admin@gmail.com:admin | fx
 * curl -s http://localhost:8080/api/admin/restaurants/1 --user admin@gmail.com:admin | fx
+* curl -i \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  -X POST --data '{"name": "Новый ресторан", "address": "Новый адрес"}' \
+  -s  http://localhost:8080/api/admin/restaurants --user admin@gmail.com:admin
+* curl -i \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  -X PUT --data '{"name": "Новый ресторан", "address": "Замена адреса"}' \
+  -s  http://localhost:8080/api/admin/restaurants/3 --user admin@gmail.com:admin
+
+* curl -X DELETE -s http://localhost:8080/api/admin/restaurants/1
 
 ##### Меню для голосования (видят все, в том числе и не авторизованные)
 * curl -s http://localhost:8080/api/menus | fx
@@ -57,7 +70,7 @@ Admin: admin@gmail.com / admin
 * curl -x DELETE -s http://localhost:8080/api/menus/1 --user admin@gmail.com:admin
 
 ##### Голосование
-* curl -x PUT -s http://localhost:8080/api/votes/restaurants/1/vote --user user@yandex.ru:password | fx
+* curl -X PUT -s http://localhost:8080/api/votes/restaurants/1/vote --user user@yandex.ru:password | fx
 
 ##### Результаты голосования
 * curl -s http://localhost:8080/api/results | fx
