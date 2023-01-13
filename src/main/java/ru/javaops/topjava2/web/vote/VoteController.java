@@ -44,12 +44,8 @@ public class VoteController {
 
     @PutMapping(value = "/restaurants/{restaurant_id}/vote")
     public void countVoteForRestaurant(@Valid @PathVariable int restaurant_id, @AuthenticationPrincipal AuthUser authUser) {
-        //ToDO должны вернуть созданное или обновленное голосование
         User user = authUser.getUser();
         log.info("Count the vote of the restaurant {} with authenticated user {}", restaurant_id, user.id());
-        // ToDo пока ничего не возвращаем в респонс (подумать, что логично вернуть: Url созданного голосования (и сам объект)),
-        //  респонс с ошибкой (например: ресторан не учавствует в голосоввании, такого ресторана не существует, уже нельзя
-        //  проапдейтить голос (время передумать вышло))
         service.createOrUpdate(restaurant_id, user);
     }
 

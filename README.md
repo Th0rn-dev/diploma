@@ -50,9 +50,17 @@ Admin: admin@gmail.com / admin
 
 * curl -X DELETE -s http://localhost:8080/api/admin/restaurants/1
 
-##### Меню для голосования (видят все, в том числе и не авторизованные)
+##### Блюда (администрирование с ролью - ADMIN)
+* curl -i \
+  -H "Accept: application/json" \
+  -H "Content-Type:application/json" \
+  -X PUT --data '{"menu": {"id": 1}, "name": "Суп-пюре", "price": 150}' \
+  -s http://localhost:8080/api/admin/dishes/1 --user admin@gmail.com:admin
+* curl -X DELETE -s http://localhost:8080/api/admin/dishes/1 --user admin@gmail.com:admin
+
+##### Меню для голосования (видят все, в том числе и не авторизованные, администрирование с ролью - ADMIN)
 * curl -s http://localhost:8080/api/menus | fx
-* curl -s http://localhost:8080/api/menus/9 --user admin@gmail.com:admin | fx
+* curl -s http://localhost:8080/api/menus/3 --user admin@gmail.com:admin | fx
 
 * curl -i \
 -H "Accept: application/json" \
@@ -62,7 +70,7 @@ Admin: admin@gmail.com / admin
 
 * curl -x DELETE -s http://localhost:8080/api/menus/1 --user admin@gmail.com:admin
 
-##### Голосование
+##### Голосование (голосует только авторизованный пользователь)
 * curl -X PUT -s http://localhost:8080/api/votes/restaurants/1/vote --user user@yandex.ru:password | fx
 
 ##### Результаты голосования
