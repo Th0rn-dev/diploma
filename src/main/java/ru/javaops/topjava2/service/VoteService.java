@@ -12,6 +12,7 @@ import ru.javaops.topjava2.model.Vote;
 import ru.javaops.topjava2.repository.MenuRepository;
 import ru.javaops.topjava2.repository.RestaurantRepository;
 import ru.javaops.topjava2.repository.VoteRepository;
+import ru.javaops.topjava2.util.ClockUtil;
 
 import java.time.LocalTime;
 import java.util.Optional;
@@ -50,7 +51,7 @@ public class VoteService {
         }
         Optional<Vote> vote = voteRepository.findByUserForCurrentDay(user);
         if (vote.isPresent()) {
-            int hour = LocalTime.now().getHour();
+            int hour = LocalTime.now(ClockUtil.getClock()).getHour();
             if (hour < 11) {
                 log.info("vote id={} updating", vote.get());
                 Vote updateVote = voteRepository.update(vote.get(), restaurant.get());

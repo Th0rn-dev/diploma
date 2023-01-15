@@ -9,11 +9,13 @@ import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ru.javaops.topjava2.HasId;
+import ru.javaops.topjava2.util.ClockUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -34,7 +36,7 @@ public class Vote extends BaseEntity implements HasId, Serializable {
     @Column(name = "voting_day", nullable = false, updatable = false)
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate votingDay = LocalDate.now();
+    private LocalDate votingDay;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -51,6 +53,11 @@ public class Vote extends BaseEntity implements HasId, Serializable {
         super(id);
         this.restaurant = restaurant;
         this.user = user;
+    }
+
+    @PrePersist
+    public void beforePersist() {
+        votingDay = LocalDate.now(ClockUtil.getClock());
     }
 
 }
