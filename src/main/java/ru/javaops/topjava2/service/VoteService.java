@@ -2,6 +2,8 @@ package ru.javaops.topjava2.service;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.javaops.topjava2.model.Menu;
 import ru.javaops.topjava2.model.Restaurant;
@@ -31,11 +33,12 @@ public class VoteService {
         this.menuRepository = menuRepository;
     }
 
-    public void createOrUpdate(int restaurant_id, User user) {
+    public ResponseEntity<Object> createOrUpdate(int restaurant_id, User user) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurant_id);
 
         if (restaurant.isEmpty()) {
             log.info("restaurant not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Set<Restaurant> restaurantsForVote = menuRepository.findAllPresentDayMenu().stream()
                 .map(Menu::getRestaurant)
@@ -43,17 +46,21 @@ public class VoteService {
 
         if (!restaurantsForVote.contains(restaurant.get())) {
             log.info("restaurant with id={} does not participate in the current voting", restaurant_id);
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
         Optional<Vote> vote = voteRepository.findByUserForCurrentDay(user);
-        if (vote.isEmpty()) {
-            voteRepository.save(new Vote(null, restaurant.get(), user));
-        } else {
+        if (vote.isPresent()) {
             int hour = LocalTime.now().getHour();
             if (hour < 11) {
                 log.info("vote id={} updating", vote.get());
-                vote.get().setRestaurant(restaurant.get());
-                voteRepository.save(vote.get());
+                Vote updateVote = voteRepository.update(vote.get(), restaurant.get());
+                return new ResponseEntity<>(updateVote, HttpStatus.OK);
+            } else {
+                log.info("vote update timed out for {}", vote.get());
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             }
         }
+        Vote newVote = voteRepository.save(new Vote(null, restaurant.get(), user));
+        return new ResponseEntity<>(newVote, HttpStatus.CREATED);
     }
 }

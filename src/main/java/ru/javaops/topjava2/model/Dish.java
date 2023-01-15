@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "dish")
@@ -23,6 +24,7 @@ import javax.persistence.Table;
 public class Dish extends NamedEntity{
 
     @Column(name = "price")
+    @NotNull
     private Integer price;
 
     // https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue

@@ -2,6 +2,8 @@ package ru.javaops.topjava2.web.menu;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,7 @@ public class AdminMenuController {
     static final String REST_URL = "/api/menus";
 
     @GetMapping
+    @Cacheable("menus")
     public List<Menu> getMenuPresentDay() {
         log.info("Get present day menu");
         return menuRepository.findAllPresentDayMenu();
@@ -48,6 +51,7 @@ public class AdminMenuController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(value = "menus", allEntries = true)
     public ResponseEntity<Menu> createMenuWithDish(@Valid @RequestBody Menu menu) {
         log.info("create {}", menu);
         checkNew(menu);
@@ -60,6 +64,7 @@ public class AdminMenuController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value = "menus", allEntries = true)
     public void delete(@PathVariable int id) {
         log.info("delete {}", id);
         menuRepository.deleteExisted(id);

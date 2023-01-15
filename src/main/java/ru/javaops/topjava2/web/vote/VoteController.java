@@ -2,6 +2,7 @@ package ru.javaops.topjava2.web.vote;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,14 +40,14 @@ public class VoteController {
     @GetMapping
     public List<Vote> getAll() {
         log.info("getAll");
-        return voteRepository.findAll();
+        return voteRepository.findAllForCurrentDay();
     }
 
     @PutMapping(value = "/restaurants/{restaurant_id}/vote")
-    public void countVoteForRestaurant(@Valid @PathVariable int restaurant_id, @AuthenticationPrincipal AuthUser authUser) {
+    public ResponseEntity<?> countVoteForRestaurant(@Valid @PathVariable int restaurant_id, @AuthenticationPrincipal AuthUser authUser) {
         User user = authUser.getUser();
         log.info("Count the vote of the restaurant {} with authenticated user {}", restaurant_id, user.id());
-        service.createOrUpdate(restaurant_id, user);
+        return service.createOrUpdate(restaurant_id, user);
     }
 
 

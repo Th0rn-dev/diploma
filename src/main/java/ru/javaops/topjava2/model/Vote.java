@@ -41,6 +41,7 @@ public class Vote extends BaseEntity implements HasId, Serializable {
     private User user;
 
     @OneToOne
+    @NotNull
     @JoinColumn(name = "restaurant_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
