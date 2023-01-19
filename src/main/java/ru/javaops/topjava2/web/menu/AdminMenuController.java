@@ -38,7 +38,6 @@ public class AdminMenuController {
     static final String REST_URL = "/api/menus";
 
     @GetMapping
-    @Cacheable("menus")
     public List<Menu> getMenuPresentDay() {
         log.info("Get present day menu");
         return menuRepository.findAllPresentDayMenu();

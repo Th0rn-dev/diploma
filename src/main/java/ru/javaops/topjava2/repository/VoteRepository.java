@@ -20,6 +20,6 @@ public interface VoteRepository extends BaseRepository<Vote> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Vote v SET v.restaurant=?2")
-    Vote update(Vote vote, Restaurant restaurant);
+    @Query("UPDATE Vote v SET v.restaurant=:restaurant WHERE v=:vote")
+    int update(Vote vote, Restaurant restaurant);
 }

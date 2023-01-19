@@ -54,8 +54,7 @@ public class VoteService {
             int hour = LocalTime.now(ClockUtil.getClock()).getHour();
             if (hour < 11) {
                 log.info("vote id={} updating", vote.get());
-                Vote updateVote = voteRepository.update(vote.get(), restaurant.get());
-                return new ResponseEntity<>(updateVote, HttpStatus.OK);
+                return new ResponseEntity<>(voteRepository.update(vote.get(), restaurant.get()), HttpStatus.OK);
             } else {
                 log.info("vote update timed out for {}", vote.get());
                 return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

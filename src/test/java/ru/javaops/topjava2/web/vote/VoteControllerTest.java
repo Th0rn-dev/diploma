@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.javaops.topjava2.web.user.UserTestData.USER_MAIL;
 import static ru.javaops.topjava2.web.vote.VoteTestData.URL_VOTE_FOR_RESTAURANT_NOT_PRESENT;
 import static ru.javaops.topjava2.web.vote.VoteTestData.URL_VOTE_FOR_RESTAURANT_ONE;
+import static ru.javaops.topjava2.web.vote.VoteTestData.URL_VOTE_FOR_RESTAURANT_TWO;
 import static ru.javaops.topjava2.web.vote.VoteTestData.VOTE_MATCHER;
 import static ru.javaops.topjava2.web.vote.VoteTestData.getNew;
 import static ru.javaops.topjava2.web.vote.VoteTestData.vote;
@@ -58,7 +59,6 @@ class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Disabled
     @Test
     @WithUserDetails(value = USER_MAIL)
     void voteChangeUpToElevenOClock() throws Exception {
@@ -66,13 +66,12 @@ class VoteControllerTest extends AbstractControllerTest {
         final LocalDateTime upToElevenOClock = LocalDateTime.of(
                 now.getYear(), now.getMonth(), now.getDayOfMonth(), 10, 50);
         final Clock fixed = Clock.fixed(upToElevenOClock.toInstant(ZoneOffset.UTC), ZoneOffset.UTC);
-        final Clock oldClock = ClockUtil.setClock(fixed);
+        ClockUtil.setClock(fixed);
 
         repository.save(vote);
-
-//        perform(MockMvcRequestBuilders.put(REST_URL + URL_VOTE_FOR_RESTAURANT_TWO)
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isOk());
+        perform(MockMvcRequestBuilders.put(REST_URL + URL_VOTE_FOR_RESTAURANT_TWO)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }
