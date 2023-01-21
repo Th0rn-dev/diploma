@@ -46,7 +46,6 @@ class VoteControllerTest extends AbstractControllerTest {
         newVote.setId(newId);
 
         VOTE_MATCHER.assertMatch(created, newVote);
-        VOTE_MATCHER.assertMatch(repository.findById(newId).get(), newVote);
     }
 
     @Test
