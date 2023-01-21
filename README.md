@@ -1,40 +1,40 @@
-[Проект TopJava-2](https://javaops.ru/view/topjava2)
+[Project TopJava-2](https://javaops.ru/view/topjava2)
 ===============================
 
-#### Техническое задание [выпускного проекта TopJava](https://github.com/JavaOPs/topjava/blob/master/graduation.md)
-- Исходный код взят из миграции TopJava на Spring Boot (без еды)
-- Выпускной проект ["Голосование за рестораны"](https://github.com/Th0rn-dev/diploma)
-- Исполнитель: Анохин Н.В.
+#### Technical task [graduate project TopJava](https://github.com/JavaOPs/topjava/blob/master/graduation.md)
+- Source code taken from TopJava to Spring Boot migration (no meals)
+- Graduation project ["Voting for restaurants"](https://github.com/Th0rn-dev/diploma)
+- implementer: Anokhin Nikolay
 
 -------------------------------------------------------------
 - Stack: [JDK 17](http://jdk.java.net/17/), Spring Boot 2.5, Lombok, H2, Caffeine Cache, Swagger/OpenAPI 3.0
 - Run: `mvn spring-boot:run` in root directory.
 -----------------------------------------------------
 [REST API documentation](http://localhost:8080/swagger-ui.html)  
-Креденшелы:
+Credentials:
 ```
 User:  user@yandex.ru / password
 Admin: admin@gmail.com / admin
 ```
 
 
-##### Дополнительные инструменты и утилиты
-1. Утилита для просмотра json в терминале: https://github.com/antonmedv/fx
+##### Additional tools and utilities
+1. Additional tools and utilities: https://github.com/antonmedv/fx
 ```
-    Установка:
+    Install:
     snap install fx (Ubuntu)
 
-    Использование:
+    Usage:
     curl ... | fx
 ```
 
-#### Список запросов через curl, просмотр fx
+#### List of requests via curl, view fx
 
-##### Пользователи с ролями
+##### Users with roles
 * curl -s http://localhost:8080/api/profile --user user@yandex.ru:password | fx
 * curl -s http://localhost:8080/api/admin/users --user admin@gmail.com:admin | fx
 
-##### Рестораны
+##### Reastaurants
 * curl -s http://localhost:8080/api/admin/restaurants --user admin@gmail.com:admin | fx
 * curl -s http://localhost:8080/api/admin/restaurants/1 --user admin@gmail.com:admin | fx
 * curl -i \
@@ -50,7 +50,7 @@ Admin: admin@gmail.com / admin
 
 * curl -X DELETE -s http://localhost:8080/api/admin/restaurants/1
 
-##### Блюда (администрирование с ролью - ADMIN)
+##### Dishes (administrations with role - ADMIN)
 * curl -i \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
@@ -58,7 +58,7 @@ Admin: admin@gmail.com / admin
   -s http://localhost:8080/api/admin/dishes/1 --user admin@gmail.com:admin
 * curl -X DELETE -s http://localhost:8080/api/admin/dishes/1 --user admin@gmail.com:admin
 
-##### Меню для голосования (видят все, в том числе и не авторизованные, администрирование с ролью - ADMIN)
+##### Menus for voting (view all, administrations with role - ADMIN)
 * curl -s http://localhost:8080/api/menus | fx
 * curl -s http://localhost:8080/api/menus/3 --user admin@gmail.com:admin | fx
 
@@ -70,8 +70,8 @@ Admin: admin@gmail.com / admin
 
 * curl -x DELETE -s http://localhost:8080/api/menus/1 --user admin@gmail.com:admin
 
-##### Голосование (голосует только авторизованный пользователь)
+##### Voting (only authorized user can vote)
 * curl -X PUT -s http://localhost:8080/api/votes/restaurants/1/vote --user user@yandex.ru:password | fx
 
-##### Результаты голосования
+##### Voting results
 * curl -s http://localhost:8080/api/results | fx
