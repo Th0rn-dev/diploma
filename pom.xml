@@ -8,11 +8,11 @@
         <version>2.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>ru.javaops</groupId>
-    <artifactId>topjava2</artifactId>
+    <groupId>com.github.Th0rn_dev</groupId>
+    <artifactId>restaurants_voting</artifactId>
     <version>1.0</version>
 
-    <name>Restaurant Voting Application</name>
+    <name>Restaurants Voting Application</name>
     <description>TopJava graduation project application</description>
     <url>https://javaops.ru/view/topjava2</url>
 
