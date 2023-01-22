@@ -1,6 +1,8 @@
 package com.github.Th0rn_dev.restaurants_voting.web.restaurant;
 
 
+import com.github.Th0rn_dev.restaurants_voting.model.Restaurant;
+import com.github.Th0rn_dev.restaurants_voting.repository.RestaurantRepository;
 import com.github.Th0rn_dev.restaurants_voting.util.validation.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.github.Th0rn_dev.restaurants_voting.model.Restaurant;
-import com.github.Th0rn_dev.restaurants_voting.repository.RestaurantRepository;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -33,10 +33,6 @@ public class AdminRestaurantController {
 
     public AdminRestaurantController(RestaurantRepository repository) {
         this.repository = repository;
-    }
-
-    protected Restaurant prepareAndSave(Restaurant restaurant) {
-        return repository.save(restaurant);
     }
 
     @GetMapping("/{id}")
@@ -63,14 +59,14 @@ public class AdminRestaurantController {
     public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
         log.info("update {} with  id={}", restaurant, id);
         ValidationUtil.assureIdConsistent(restaurant, id);
-        prepareAndSave(restaurant);
+        repository.save(restaurant);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
         ValidationUtil.checkNew(restaurant);
-        Restaurant created = prepareAndSave(restaurant);
+        Restaurant created = repository.save(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
