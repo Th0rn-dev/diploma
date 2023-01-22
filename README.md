@@ -40,12 +40,12 @@ Admin: admin@gmail.com / admin
 * curl -i \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
-  -X POST --data '{"name": "Новый ресторан", "address": "Новый адрес"}' \
+  -X POST --data '{"name": "New restaurant", "address": "New Address"}' \
   -s  http://localhost:8080/api/admin/restaurants --user admin@gmail.com:admin
 * curl -i \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
-  -X PUT --data '{"name": "Новый ресторан", "address": "Замена адреса"}' \
+  -X PUT --data '{"name": "Change restaurant", "address": "Change Address"}' \
   -s  http://localhost:8080/api/admin/restaurants/3 --user admin@gmail.com:admin
 
 * curl -X DELETE -s http://localhost:8080/api/admin/restaurants/1
@@ -56,7 +56,7 @@ Admin: admin@gmail.com / admin
 * curl -i \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
-  -X PUT --data '{"menu": {"id": 1}, "name": "Суп-пюре", "price": 150}' \
+  -X PUT --data '{"menu": {"id": 1}, "name": "Puree soup", "price": 150}' \
   -s http://localhost:8080/api/admin/dishes/1 --user admin@gmail.com:admin
 * curl -X DELETE -s http://localhost:8080/api/admin/dishes/1 --user admin@gmail.com:admin
 
@@ -66,7 +66,7 @@ Admin: admin@gmail.com / admin
 * curl -i \
 -H "Accept: application/json" \
 -H "Content-Type:application/json" \
--X POST --data '{"restaurant": {"id": 1}, "dishes": [{"name": "Суп", "price": 100}, {"name": "Салат", "price": 70}]}' \
+-X POST --data '{"restaurant": {"id": 1}, "dishes": [{"name": "Soup", "price": 100}, {"name": "Salad", "price": 70}]}' \
 -s  http://localhost:8080/api/menus --user admin@gmail.com:admin
 
 * curl -x DELETE -s http://localhost:8080/api/menus/1 --user admin@gmail.com:admin

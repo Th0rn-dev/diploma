@@ -14,6 +14,7 @@ import com.github.Th0rn_dev.restaurants_voting.repository.RestaurantRepository;
 import com.github.Th0rn_dev.restaurants_voting.repository.VoteRepository;
 import com.github.Th0rn_dev.restaurants_voting.util.ClockUtil;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class VoteService {
             log.info("restaurant not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Set<Restaurant> restaurantsForVote = menuRepository.findAllPresentDayMenu().stream()
+        Set<Restaurant> restaurantsForVote = menuRepository.findAllByDate(LocalDate.now()).stream()
                 .map(Menu::getRestaurant)
                 .collect(Collectors.toSet());
 

@@ -19,14 +19,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity()
-@Table(name = "menu")
+@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"display_date","restaurant_id" }, name = "menu_unique_display_date_restaurant")})
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -38,6 +40,10 @@ public class Menu extends BaseEntity {
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date created = new Date();
+
+    @Column(name = "display_date", nullable = false)
+    @NotNull
+    private LocalDate date;
 
     @ManyToOne
     @NotNull

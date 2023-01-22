@@ -21,6 +21,7 @@ import com.github.Th0rn_dev.restaurants_voting.repository.MenuRepository;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,7 +39,7 @@ public class AdminMenuController {
     @GetMapping
     public List<Menu> getMenuPresentDay() {
         log.info("Get present day menu");
-        return menuRepository.findAllPresentDayMenu();
+        return menuRepository.findAllByDate(LocalDate.now());
     }
 
     @GetMapping("/{id}")
@@ -48,7 +49,6 @@ public class AdminMenuController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @CacheEvict(value = "menus", allEntries = true)
     public ResponseEntity<Menu> createMenuWithDish(@Valid @RequestBody Menu menu) {
         log.info("create {}", menu);
         ValidationUtil.checkNew(menu);
