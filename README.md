@@ -34,7 +34,7 @@ Admin: admin@gmail.com / admin
 * curl -s http://localhost:8080/api/profile --user user@yandex.ru:password | fx
 * curl -s http://localhost:8080/api/admin/users --user admin@gmail.com:admin | fx
 
-##### Reastaurants
+##### Restaurants
 * curl -s http://localhost:8080/api/admin/restaurants --user admin@gmail.com:admin | fx
 * curl -s http://localhost:8080/api/admin/restaurants/1 --user admin@gmail.com:admin | fx
 * curl -i \
@@ -51,6 +51,8 @@ Admin: admin@gmail.com / admin
 * curl -X DELETE -s http://localhost:8080/api/admin/restaurants/1
 
 ##### Dishes (administrations with role - ADMIN)
+* curl -s http://localhost:8080/api/admin/dishes --user admin@gmail.com:admin | fx
+* curl -s http://localhost:8080/api/admin/dishes/1 --user admin@gmail.com:admin | fx
 * curl -i \
   -H "Accept: application/json" \
   -H "Content-Type:application/json" \
@@ -61,7 +63,6 @@ Admin: admin@gmail.com / admin
 ##### Menus for voting (view all, administrations with role - ADMIN)
 * curl -s http://localhost:8080/api/menus | fx
 * curl -s http://localhost:8080/api/menus/3 --user admin@gmail.com:admin | fx
-
 * curl -i \
 -H "Accept: application/json" \
 -H "Content-Type:application/json" \
