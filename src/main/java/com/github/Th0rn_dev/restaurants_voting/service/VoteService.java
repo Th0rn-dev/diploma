@@ -19,6 +19,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.github.Th0rn_dev.restaurants_voting.util.ClockUtil.TIME_AFTER_UPDATE_VOTING_IS_NOT_POSSIBLE;
+
 @Service
 @Slf4j
 public class VoteService {
@@ -52,7 +54,7 @@ public class VoteService {
         Optional<Vote> vote = voteRepository.findByUserForCurrentDay(user);
         if (vote.isPresent()) {
             int hour = LocalTime.now(ClockUtil.getClock()).getHour();
-            if (hour < 11) {
+            if (hour < TIME_AFTER_UPDATE_VOTING_IS_NOT_POSSIBLE) {
                 log.info("vote id={} updating", vote.get());
                 return new ResponseEntity<>(voteRepository.update(vote.get(), restaurant.get()), HttpStatus.OK);
             } else {

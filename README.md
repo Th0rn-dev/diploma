@@ -73,6 +73,3 @@ Admin: admin@gmail.com / admin
 
 ##### Voting (only authorized user can vote)
 * curl -X PUT -s http://localhost:8080/api/votes/restaurants/1/vote --user user@yandex.ru:password | fx
-
-##### Voting results
-* curl -s http://localhost:8080/api/results | fx

@@ -15,6 +15,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class ClockUtil {
     private static final AtomicReference<Clock> CLOCK_REFERENCE = new AtomicReference<>(Clock.systemDefaultZone());
 
+    public static final int TIME_AFTER_UPDATE_VOTING_IS_NOT_POSSIBLE = 11;
+
     @NonNull
     public static Clock getClock() {
         return CLOCK_REFERENCE.get();
